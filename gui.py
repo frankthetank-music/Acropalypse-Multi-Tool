@@ -4,7 +4,7 @@ from tkinter import font
 from tkinter.filedialog import askopenfilename, askdirectory
 import sv_ttk
 
-import os
+import os, sys, subprocess
 import time
 from threading import Thread
 import pathlib
@@ -28,7 +28,11 @@ class DetectTool(Frame):
 		# Get the selected item
 		selected_item = self.listbox.get(self.listbox.curselection())
 		# Open the image using the default Windows image viewer
-		os.startfile(selected_item)
+		if os_name == "Windows":
+			os.startfile(selected_item)
+		else:
+			opener = "open" if sys.platform == "darwin" else "xdg-open"
+			subprocess.call([opener, selected_item])
 
 	def on_resize(self, event):
 		self.update_wraplength(self.lower_frame)
