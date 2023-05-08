@@ -1,0 +1,30 @@
+[package]
+name = "acropalypse_gif_lib"
+version = "0.1.0"
+edition = "2021"
+authors = ["heriet <heriet@heriet.info>, ensingerphilipp"]
+description = "aCropalypse gif LIB"
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+exclude = ["example/", ".github/"]
+
+[lib]
+crate-type = ["cdylib"]
+
+[[bin]]
+name = "acropalypse-gif"
+path = "src/lib.rs"
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+cpython = "0.7.1"
+anyhow = "1.0.70"
+bitstream-io = "1.6.0"
+byteorder = "1.4.3"
+gif = "0.12.0"
+thiserror = "1.0.40"
+weezl = "0.1.7"
+
+[features]
+default = ["python3"]
+python3 = ["cpython/python3-sys", "cpython/extension-module"]
