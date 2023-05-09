@@ -1,4 +1,4 @@
-# Acropalypse Restoration Multi-Tool
+# Acropalypse Restoration and Detection Multi-Tool
 
 ### A Comprehensive Solution for Acropalypse-Affected Images
 
@@ -6,7 +6,7 @@ Easily restore PNG and GIF files that have fallen victim to the Acropalypse CVE 
 
 This Tool works seamlessly with Python 3.10 cross-platform on Windows and Linux-based systems.
 
-Also, yes this code is dirty, as it was created as part of a lecture at University of Applied Sciences Upper Austria, and students dont have much spare time - deal with it 😎
+Also, yes this code is quite dirty, as it was created as part of a lecture at University of Applied Sciences Upper Austria, and students dont have much spare time - so deal with it 😎
 
 **Key Features & Improvements**:
 - Restore and detect both GIF and PNG formats
