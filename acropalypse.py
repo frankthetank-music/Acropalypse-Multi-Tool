@@ -2,7 +2,6 @@ import zlib
 import sys
 import io
 import struct
-import requests
 from urllib.parse import urlparse
 
 import tempfile
