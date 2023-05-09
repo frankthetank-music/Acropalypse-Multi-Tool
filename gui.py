@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 from tkinter import font
-from tkinter.filedialog import askopenfilename, askdirectory
+from tkinter.filedialog import askopenfilename, askdirectory, asksaveasfilename
 import sv_ttk
 
 import os, sys, subprocess
@@ -17,6 +17,8 @@ from gif_lib import acropalypse_gif
 import platform
 import tempfile
 import ctypes
+import shutil 
+
 
 # Get the name of the host operating system
 os_name = platform.system()
@@ -169,6 +171,9 @@ class RestoreTool(Frame):
 		self.left_label.grid(row=0, column=0, sticky="ns")
 		self.right_label = Label(right_frame, bg='grey')
 		self.right_label.grid(row=0, column=0, sticky="ns")
+
+		# Initialize Image Variable
+		self.right_label.image = None
 		
 		padding_top = int(frame_height * 0.08)
 		self.button = ttk.Button(middle_frame, text="Select Image", command=self.load_image).grid(row=0, column=1, pady=(padding_top, 0), sticky='ns')
@@ -211,6 +216,11 @@ class RestoreTool(Frame):
 		self.middle_frame = middle_frame
 		self.right_frame = right_frame
 		self.left_frame = left_frame
+
+		# Add save button
+		self.save_button = ttk.Button(self.right_frame, text="Save Image", command=self.save_image)
+		self.save_button.place(relx=1.0, rely=0.0, x=-5, y=5, anchor="ne")
+		self.reconstructing = False
 
 		self.master.bind('<Configure>', self.on_resize)
 
@@ -379,6 +389,24 @@ class RestoreTool(Frame):
 		except Exception:
 			self.label_log.config(text=f"Error reconstructing the image! \nAre you using the right mode and resolution?", anchor='center', justify='center')
 			self.reconstructing=False
+		
+	def save_image(self):
+	# Check if the image is reconstructed
+		if self.right_label.image:
+			# Open save file dialog
+			file_path = asksaveasfilename(defaultextension=".png", filetypes=[("PNG Files", "*.png"), ("GIF Files", "*.gif")], parent=self)
+
+			if file_path:
+				# Save the image
+				if pathlib.Path(self.cropped_image_file).suffix == ".gif":
+					restored_image_path = os.path.join(tempdir, 'restored.gif')
+				elif pathlib.Path(self.cropped_image_file).suffix == ".png":
+					restored_image_path = os.path.join(tempdir, 'restored.png')
+
+				shutil.copy2(restored_image_path, file_path)
+				self.label_log.config(text="Image saved successfully!", anchor='center', justify='center')
+		else:
+			self.label_log.config(text="No image to save, reconstruct an image first.", anchor='center', justify='center')
 
 def dark_title_bar(window):
     """
