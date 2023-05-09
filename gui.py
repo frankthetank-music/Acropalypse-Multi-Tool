@@ -346,6 +346,7 @@ class RestoreTool(Frame):
 				return
 		elif pathlib.Path(self.cropped_image_file).suffix == ".png":
 			try:
+				print(self.rgb_alpha)
 				self.acropalypse_Instance.reconstruct_image(self.cropped_image_file, int(self.width_entry.get() or 1920), int(self.height_entry.get() or 1080), self.rgb_alpha)
 			except Exception as e:
 				self.label_log.config(text=f"Error reconstructing the image: {e}", anchor='center', justify='center')
