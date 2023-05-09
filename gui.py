@@ -45,18 +45,21 @@ class DetectTool(Frame):
 	
 	def on_detect(self):
 		search_dir = askdirectory(parent=self)
-		for filename in os.listdir(search_dir):
-			search_file = os.path.join(search_dir, filename)
-			if os.path.isfile(search_file):
-				if pathlib.Path(search_file).suffix == ".gif":
-					response = acropalypse_gif.detect(search_file)
-					if response:
-						self.listbox.insert(END, f"{search_file}")
-				elif pathlib.Path(search_file).suffix == ".png":
-					response = self.acropalypse_Instance.detect_png(search_file)
-					if response:
-						self.listbox.insert(END, f"{search_file}")
-		self.listbox.pack(side="left", fill="both", expand=True)
+		if search_dir:
+			for filename in os.listdir(search_dir):
+				search_file = os.path.join(search_dir, filename)
+				if os.path.isfile(search_file):
+					if pathlib.Path(search_file).suffix == ".gif":
+						response = acropalypse_gif.detect(search_file)
+						if response:
+							if not f"{search_file}" in self.listbox.get(0, "end"):
+								self.listbox.insert(END, f"{search_file}")
+					elif pathlib.Path(search_file).suffix == ".png":
+						response = self.acropalypse_Instance.detect_png(search_file)
+						if response:
+							if not f"{search_file}" in self.listbox.get(0, "end"):
+								self.listbox.insert(END, f"{search_file}")
+			self.listbox.pack(side="left", fill="both", expand=True)
 
 	def __init__(self, master, frame):
 		super().__init__(master)
