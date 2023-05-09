@@ -25,7 +25,8 @@ class Acropalypse():
 		stream.write(body)
 		crc = zlib.crc32(body, zlib.crc32(name))
 		stream.write(crc.to_bytes(4, "big"))
-	def reconstruct_image(self, cropped_image_file, img_width, img_heigth, mode):
+		
+	def reconstruct_image(self, cropped_image_file, img_width, img_heigth, rgb_alpha):
 		PNG_MAGIC = b"\x89PNG\r\n\x1a\n"
 
 		orig_width = img_width
@@ -97,7 +98,7 @@ class Acropalypse():
 
 		print("Scanning for viable parses...")
 
-		# prefix the stream with 32k of "X" so backrefs can work
+		# prefix the stream with 32k bytes so backrefs can work
 		prefix_lenght = 0x8000
 		prefix = b"\x00" + (prefix_lenght).to_bytes(2, "little") + (prefix_lenght ^ 0xffff).to_bytes(2, "little") + b"\x00" * prefix_lenght
 
@@ -134,7 +135,7 @@ class Acropalypse():
 		ihdr += orig_width.to_bytes(4, "big")
 		ihdr += orig_height.to_bytes(4, "big")
 		ihdr += (8).to_bytes(1, "big") # bitdepth
-		if mode == "Windows 11 Snipping Tool":
+		if rgb_alpha:
 			ihdr += (6).to_bytes(1, "big") # true colour with alpha
 		else:
 			ihdr += (2).to_bytes(1, "big") # true colour
@@ -145,7 +146,7 @@ class Acropalypse():
 		self.pack_png_chunk(out, b"IHDR", ihdr)
 
 		# fill missing data with solid magenta
-		if mode == "Windows 11 Snipping Tool":
+		if rgb_alpha:
 			reconstructed_idat = bytearray((b"\x00" + b"\xff\x00\xff\xff" * orig_width) * orig_height)
 		else:
 			reconstructed_idat = bytearray((b"\x00" + b"\xff\x00\xff" * orig_width) * orig_height)
