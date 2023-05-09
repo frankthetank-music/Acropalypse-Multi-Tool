@@ -1,3 +1,2 @@
 Pillow==9.5.0
-Requests==2.30.0
 sv_ttk==2.4.3
