@@ -14,7 +14,6 @@ Multi OS support (Windows, Linux)
 Tested with Pyton 3.10
 
 ### Requirements
-
 Python Libs: 
 
 Pillow==9.5.0
