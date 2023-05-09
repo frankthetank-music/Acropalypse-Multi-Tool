@@ -123,6 +123,7 @@ class Acropalypse():
 				#print(e)
 				pass
 		else:
+			print("Failed to find viable parse!")
 			raise Exception("Failed to find viable parse!")
 
 		print("Generating output PNG...")
