@@ -119,6 +119,7 @@ class RestoreTool(Frame):
 		super().__init__(master)
 		self.frame = frame
 		self.master = master
+		self.rgb_alpha = False
 		self.pack(fill=BOTH, expand=1)
 		
 		self.acropalypse_Instance = Acropalypse()
@@ -177,7 +178,7 @@ class RestoreTool(Frame):
 		self.label_image_path.config(wraplength=self.calculate_wraplength(middle_frame), anchor='center', justify='center')
 		
 		# Drop-Down Menü Optionen
-		options = ["-- select option --", "Windows 11 Snipping Tool", "Google Pixel 3", "Google Pixel 3 XL", "Google Pixel 3a", "Google Pixel 3a XL", "Google Pixel 4", "Google Pixel 4 XL", "Google Pixel 4a", "Google Pixel 5", "Google Pixel 5a", "Google Pixel 6", "Google Pixel 6 Pro", "Google Pixel 6a", "Google Pixel 7", "Google Pixel 7 Pro"]
+		options = ["-- select option --", "Custom RGBA", "Custom RGB", "Windows 11 Snipping Tool", "Google Pixel 3", "Google Pixel 3 XL", "Google Pixel 3a", "Google Pixel 3a XL", "Google Pixel 4", "Google Pixel 4 XL", "Google Pixel 4a", "Google Pixel 5", "Google Pixel 5a", "Google Pixel 6", "Google Pixel 6 Pro", "Google Pixel 6a", "Google Pixel 7", "Google Pixel 7 Pro"]
 		menu_width = len(max(options, key=len))
 
 		# Standardwert für das Drop-Down Menü
@@ -227,16 +228,29 @@ class RestoreTool(Frame):
 	def on_option_changed(self, *args):
 		"""Diese Funktion wird aufgerufen, wenn die ausgewählte Option im Drop-Down Menü geändert wird."""
 		self.selected_option = self.dropdown.get()
+		self.rgb_alpha = False
 		if self.selected_option == "-- select screenshot program --":
 			self.width_entry.delete(0,END)
 			self.width_entry.insert(0, "1920")
 			self.height_entry.delete(0,END)
 			self.height_entry.insert(0, "1080")
-		if self.selected_option == "Windows 11 Snipping Tool":
+		elif self.selected_option == "Windows 11 Snipping Tool":
+			self.rgb_alpha = True
 			self.width_entry.delete(0,END)
 			self.width_entry.insert(0, "1920")
 			self.height_entry.delete(0,END)
 			self.height_entry.insert(0, "1080")
+		elif self.selected_option == "Custom RGBA":
+			self.rgb_alpha = True
+			self.width_entry.delete(0,END)
+			self.width_entry.insert(0, "0")
+			self.height_entry.delete(0,END)
+			self.height_entry.insert(0, "0")
+		elif self.selected_option == "Custom RGB":
+			self.width_entry.delete(0,END)
+			self.width_entry.insert(0, "0")
+			self.height_entry.delete(0,END)
+			self.height_entry.insert(0, "0")
 		elif self.selected_option == "Google Pixel 3" or self.selected_option == "Google Pixel 3a XL":
 			self.width_entry.delete(0,END)
 			self.width_entry.insert(0, "1080")
@@ -332,7 +346,7 @@ class RestoreTool(Frame):
 				return
 		elif pathlib.Path(self.cropped_image_file).suffix == ".png":
 			try:
-				self.acropalypse_Instance.reconstruct_image(self.cropped_image_file, int(self.width_entry.get() or 1920), int(self.height_entry.get() or 1080), self.selected_option)
+				self.acropalypse_Instance.reconstruct_image(self.cropped_image_file, int(self.width_entry.get() or 1920), int(self.height_entry.get() or 1080), self.rgb_alpha)
 			except Exception as e:
 				self.label_log.config(text=f"Error reconstructing the image: {e}", anchor='center', justify='center')
 				self.reconstructing=False
