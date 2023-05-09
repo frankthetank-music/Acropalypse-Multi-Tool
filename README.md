@@ -1,21 +1,29 @@
 # Acropalypse-Multi-Tool
 
 ### Multi Tool for Acropalypse<br>
-Based on:
+
+<br>
+With this tool you can restore PNG and GIF files, that are acropalypsed by any Google Pixel phone or by Windows Snipping Tool. 
+Search and detect Images in local Folders for vulnerability.
+
+
+Cross-Plattform using Python 3.10 with Windows and Linux based Systems
+
+*Based on*:
 - https://gist.github.com/DavidBuchanan314/93de9d07f7fab494bcdf17c2bd6cef02
 - https://github.com/heriet/acropalypse-gif
 
-<br>
-With this tool you can restore PNG and GIF files, that are acropalypsed by any Google Pixel phone or by Windows Snipping Tool. You can also use the tool to search folders for vulnerable PNG and GIF files.
+**Improvements**:
+- Restore and detect GIF and PNG
+- Restore and detect PNG with and without Alpha Channel (RGB + RGBA)
+- Allow for all resolutions and Tools (Snipping Tool + Pixel Markup)
+- Restore more PNG Data (Better Reference Color Filling)
 
 ### Compatibility
 
-Multi OS support (Windows, Linux)
-Tested with Pyton 3.10
+- Python 3.10 (others might work too)
+- Windows / Linux / Wsl
 
 ### Requirements
-Python Libs: 
-
-Pillow==9.5.0
-Requests==2.30.0
+Pillow==9.5.0<br>
 sv_ttk==2.4.3
