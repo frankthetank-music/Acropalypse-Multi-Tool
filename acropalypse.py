@@ -160,39 +160,12 @@ class Acropalypse():
 
 		print("Done!")
 
-	def fetch_data(self, input_source):
-		if self.is_url(input_source):
-			return self.fetch_remote_data(input_source)
-		else:
-			return self.fetch_local_data(input_source)
-
-	def is_url(self, input_source):
-		try:
-			result = urlparse(input_source)
-			return result.scheme in ('http', 'https')
-		except ValueError:
-			return False
-
-	def fetch_local_data(self, filepath):
-		try:
-			with open(filepath, 'rb') as file:
-				data = file.read()
-				return data
-		except FileNotFoundError:
-			print(f"File not found: {filepath}")
-			return None
-
-	def fetch_remote_data(self, url):
-		response = requests.get(url)
-		if response.status_code != 200:
-			print(f"Failed to fetch the PNG file from the URL: {url}")
-			return None
-		return response.content
-
 	def detect_png(self, input_source):
-		data = self.fetch_data(input_source)
-		if not data:
-			return
+		try:
+			with open(input_source, 'rb') as file:
+				data = file.read()
+		except FileNotFoundError:
+			return f"File not found: {input_source}"
 
 		png_signature = b'\x89PNG\r\n\x1a\n'
 		iend_chunk = b'IEND'
