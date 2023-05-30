@@ -25,6 +25,7 @@ class Acropalypse():
 		crc = zlib.crc32(body, zlib.crc32(name))
 		stream.write(crc.to_bytes(4, "big"))
 		
+	# Function called by gui.py when doing the Acropalypse Now!
 	def reconstruct_image(self, cropped_image_file, img_width, img_heigth, rgb_alpha):
 		PNG_MAGIC = b"\x89PNG\r\n\x1a\n"
 
@@ -127,8 +128,8 @@ class Acropalypse():
 
 		print("Generating output PNG...")
 
+		# Writing restored image to the os temp folder. gui.py is grabbing it from there
 		out = open(os.path.join(tempdir, 'restored.png'), "wb")
-
 		out.write(PNG_MAGIC)
 
 		ihdr = b""
@@ -159,6 +160,7 @@ class Acropalypse():
 
 		print("Done!")
 
+	# function called by gui.py for detecting vulnerable images
 	def detect_png(self, input_source):
 		try:
 			with open(input_source, 'rb') as file:
@@ -181,6 +183,7 @@ class Acropalypse():
 		crc_length = 4
 		iend_full_chunk_length = iend_length + crc_length
 
+		# check if there is data after the IEND chunk
 		if len(data) > iend_index + iend_full_chunk_length:
 			return True
 		else:
