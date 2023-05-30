@@ -24,8 +24,8 @@ import shutil
 os_name = platform.system()
 tempdir = tempfile.gettempdir()
 
+#Class used in Detection Window to detect Acropalypse vulnerable images
 class DetectTool(Frame):
-
 	def open_image(self, event):
 		# Get the selected item
 		selected_item = self.listbox.get(self.listbox.curselection())
@@ -45,6 +45,7 @@ class DetectTool(Frame):
 	def calculate_wraplength(self, frame):
 		return frame.winfo_width() * 0.8
 	
+	#Search given directory for all images of type .gif and .png and detect trailing data
 	def on_detect(self):
 		search_dir = askdirectory(parent=self)
 		if search_dir:
@@ -62,7 +63,8 @@ class DetectTool(Frame):
 							if not f"{search_file}" in self.listbox.get(0, "end"):
 								self.listbox.insert(END, f"{search_file}")
 			self.listbox.pack(side="left", fill="both", expand=True)
-
+			
+	#Initialize Window for gui
 	def __init__(self, master, frame):
 		super().__init__(master)
 		self.acropalypse_Instance = Acropalypse()
@@ -116,6 +118,7 @@ class DetectTool(Frame):
 		# Bind the double-click event to the listbox
 		listbox.bind("<Double-Button-1>", self.open_image)
 
+#Class used in Restoration Window to restore Acropalypse vulnerable images		
 class RestoreTool(Frame):
 	def __init__(self, master, frame):
 		super().__init__(master)
@@ -182,15 +185,15 @@ class RestoreTool(Frame):
 		self.label_image_path.grid(row=1, column=1, pady=(int(frame_height * 0.01), 0), padx=(middle_frame_width * 0.1, middle_frame_width * 0.1), sticky='ns')
 		self.label_image_path.config(wraplength=self.calculate_wraplength(middle_frame), anchor='center', justify='center')
 		
-		# Drop-Down Menü Optionen
+		# Drop-Down Menu Options
 		options = ["-- select option --", "Custom RGBA", "Custom RGB", "Windows 11 Snipping Tool", "Google Pixel 3", "Google Pixel 3 XL", "Google Pixel 3a", "Google Pixel 3a XL", "Google Pixel 4", "Google Pixel 4 XL", "Google Pixel 4a", "Google Pixel 5", "Google Pixel 5a", "Google Pixel 6", "Google Pixel 6 Pro", "Google Pixel 6a", "Google Pixel 7", "Google Pixel 7 Pro"]
 		menu_width = len(max(options, key=len))
 
-		# Standardwert für das Drop-Down Menü
+		# Dropdown default Config
 		self.dropdown = StringVar()
 		self.dropdown.set(options[0])
 
-		# Drop-Down Menü erstellen
+		# Drop-Down Menu creation
 		drop_down_menu = ttk.OptionMenu(middle_frame, self.dropdown, *options, command=self.on_option_changed)
 		drop_down_menu.config(width=menu_width)
 		drop_down_menu.grid(row=2, column=1, pady=int(frame_height*0.03), sticky='ns')
@@ -235,8 +238,8 @@ class RestoreTool(Frame):
 	def calculate_wraplength(self, frame):
 		return frame.winfo_width() * 0.8
 	
+	#Update Optionsmenu on change
 	def on_option_changed(self, *args):
-		"""Diese Funktion wird aufgerufen, wenn die ausgewählte Option im Drop-Down Menü geändert wird."""
 		self.selected_option = self.dropdown.get()
 		self.rgb_alpha = False
 		if self.selected_option == "-- select screenshot program --":
@@ -345,7 +348,8 @@ class RestoreTool(Frame):
 			t= Thread(target=self.acrop_now)
 			t.start()
 			self.reconstructing=True
-		
+	
+	#Load the specified .gif or .png and use the Libraries to restore the original picture from the cropped image 
 	def acrop_now(self):
 		if pathlib.Path(self.cropped_image_file).suffix == ".gif":
 			try:
@@ -500,7 +504,7 @@ def display_initial_window():
 
 		detect.mainloop()
 
-	# Fenstergröße setzen
+	# Set Windowsize
 	initial_window.root_width = round(initial_window.winfo_screenwidth() * 0.28)
 	initial_window.root_height = round(initial_window.winfo_screenheight() *0.15)
 	min_width = int(initial_window.root_width * 0.95)
