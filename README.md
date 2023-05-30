@@ -14,7 +14,9 @@ Also, yes this code is quite dirty, as it was created as part of a lecture at Un
 - Compatible with all resolutions and tools, including Snipping Tool and Pixel Markup
 - Enhanced PNG data restoration for improved reference color filling
 
-<img src="tool.png" width="600">
+<p align="center">
+  <img src="tool.png" width="600">
+</p>
 
 **Based on**:
 - https://gist.github.com/DavidBuchanan314/93de9d07f7fab494bcdf17c2bd6cef02
