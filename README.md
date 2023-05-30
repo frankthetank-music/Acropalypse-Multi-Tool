@@ -35,6 +35,11 @@ Pillow==9.5.0<br>
 sv_ttk==2.4.3
 
 ## How to use RestoreTool
+
+Install the required Python Version and Libraries and open the Tool via Commandline with
+
+`python ./gui.py`
+
 The following steps illustrate how to use the RestoreTool:
 
 1. **Select Image**: Start by clicking on the "Select Image" button to load the image you want to restore. It will open a dialog box allowing you to choose a PNG or GIF file from your system.
