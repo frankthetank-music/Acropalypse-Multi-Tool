@@ -18,11 +18,20 @@ Also, yes this code is quite dirty, as it was created as part of a lecture at Un
 - https://gist.github.com/DavidBuchanan314/93de9d07f7fab494bcdf17c2bd6cef02
 - https://github.com/heriet/acropalypse-gif
 
+**Affected CVE´s**:
+- CVE-2023-28303 https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-28303
+- CVE-2023-21036 https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-21036
+
 ## Getting Started
 The GUI has two main tools:
 
 - DetectTool: This tool helps to identify the pictures that are vulnerable to the acropalypse bug in a specific folder.
 - RestoreTool: This tool assists in restoring the vulnerable pictures.
+
+Install the required Python Version and Libraries and open the Tool via Commandline with
+
+`python ./gui.py`
+
 
 ### System Compatibility
 
@@ -35,10 +44,6 @@ Pillow==9.5.0<br>
 sv_ttk==2.4.3
 
 ## How to use RestoreTool
-
-Install the required Python Version and Libraries and open the Tool via Commandline with
-
-`python ./gui.py`
 
 The following steps illustrate how to use the RestoreTool:
 
