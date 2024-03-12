@@ -40,6 +40,7 @@ Install the required Python Version and Libraries and open the Tool via Commandl
 ### System Compatibility
 
 - Python 3.10 (other versions may also work)
+  - update 03-2024: working with Python 3.11 on Linux Mint 21.2 Cinnamon
 - Windows / Linux / WSL
 
 ### Required Libraries
