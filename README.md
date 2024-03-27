@@ -36,6 +36,16 @@ Install the required Python Version and Libraries and open the Tool via Commandl
 
 `python ./gui.py`
 
+You can also use the prebuilt **docker image**:
+
+On Linux run:
+```
+xhost +local:
+sudo docker run -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix frankthetankmusic/acropalypse-multi-tool
+```
+This docker image uses the python:3.10 container, see Dockerfile for how it is configured.
+
+On Windows you will have to install and configure X-Server for the gui to work.
 
 ### System Compatibility
 
