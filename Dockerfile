@@ -1,16 +1,16 @@
-# Verwenden eines offiziellen Python-Laufzeit-Images als Eltern-Image
+# Using an official Python runtime image as the parent image
 FROM python:3.10
 
-# Arbeitsverzeichnis im Container setzen
+# Setting the working directory in the container
 WORKDIR /usr/src/app
 
-# Abhängigkeiten installieren
-# Kopieren der Datei 'requirements.txt' ins Container-Verzeichnis '/usr/src/app'
+# Installing dependencies
+# Copying the 'requirements.txt' file into the container directory '/usr/src/app'
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Kopieren des Quellcodes ins Container-Verzeichnis '/usr/src/app'
+# Copying the source code into the container directory '/usr/src/app'
 COPY . .
 
-# Befehl, der beim Start des Containers ausgeführt wird
+# Command that is executed when the container starts
 CMD [ "python", "./gui.py" ]
