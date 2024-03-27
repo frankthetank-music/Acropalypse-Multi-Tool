@@ -47,6 +47,7 @@ This docker image uses the python:3.10 container, see Dockerfile for how it is c
 
 On Windows you will have to install and configure X-Server for the gui to work.
 
+If you want to build the container yourself use: `sudo docker build -t acropalypse-multi-tool .` and then run `xhost +local:` and `sudo docker run -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix acropalypse-multi-tool`.
 ### System Compatibility
 
 - Python 3.10 (other versions may also work)
